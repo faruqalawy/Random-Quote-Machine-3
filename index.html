@@ -104,6 +104,18 @@
     transition: color 1s ease;
     }
     
+    .fadeIn {
+    animation: fadeIn 1.8s ease-in-out forwards;
+    }
+
+    @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
 
         </style>
     </head>
@@ -222,19 +234,35 @@
             }
 
             function setQuote() {
-                const { quote, author } = getRandomQuote();
-                const randomColor = getRandomColor();
+            const { quote, author } = getRandomQuote();
+            const randomColor = getRandomColor();
 
-                document.getElementById('text').innerHTML = quote;
-                document.getElementById('author').innerText = `- ${author}`;
-                const buttons = document.querySelectorAll('.button');
-                buttons.forEach(button => {
-                    button.style.backgroundColor = randomColor;
-                });
-                document.body.style.backgroundColor = randomColor;
-                document.getElementById('text').style.color = randomColor;
-                document.getElementById('author').style.color = randomColor;
-                }
+            const textElement = document.getElementById('text');
+            const authorElement = document.getElementById('author');
+
+
+            textElement.classList.remove('fadeIn');
+            authorElement.classList.remove('fadeIn');
+
+
+            setTimeout(() => {
+                textElement.innerHTML = quote;
+                authorElement.innerText = `- ${author}`;
+
+
+                textElement.classList.add('fadeIn');
+                authorElement.classList.add('fadeIn');
+            }, 50);
+
+
+            const buttons = document.querySelectorAll('.button');
+            buttons.forEach(button => {
+                button.style.backgroundColor = randomColor;
+            });
+            document.body.style.backgroundColor = randomColor;
+            textElement.style.color = randomColor;
+            authorElement.style.color = randomColor;
+            }
                 document.getElementById('new-quote').addEventListener('click', setQuote);
             setQuote();
         </script>
